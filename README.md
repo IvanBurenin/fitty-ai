@@ -14,7 +14,7 @@
   &nbsp;·&nbsp;
   <a href="https://ivanburenin.github.io/fitty-ai/">Landing page</a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/IvanBurenin/IvanBurenin">GitHub profile</a>
+  <a href="https://github.com/IvanBurenin">GitHub profile</a>
 </p>
 
 <p align="center">

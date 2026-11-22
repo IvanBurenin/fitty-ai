@@ -288,6 +288,7 @@ function LanguageSwitcher() {
       >
         <Globe size={14} aria-hidden="true" />
         <span className="lang-current">{current.native}</span>
+        <span className="lang-short">{current.short}</span>
         <ChevronDown className="lang-chevron" size={13} aria-hidden="true" />
       </button>
 

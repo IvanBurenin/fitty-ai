@@ -225,6 +225,13 @@ a {
   white-space: nowrap;
 }
 
+.lang-short {
+  display: none;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
 .lang-chevron {
   flex: 0 0 auto;
   color: var(--muted);
@@ -1226,6 +1233,10 @@ a {
 
   .lang-current {
     display: none;
+  }
+
+  .lang-short {
+    display: inline;
   }
 
   .lang-trigger {
