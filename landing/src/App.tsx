@@ -621,6 +621,7 @@ function Languages() {
 
 function Faq() {
   const { c } = useLanding()
+  const [open, setOpen] = useState<number | null>(null)
   return (
     <section className="section" id="faq">
       <div className="wrap faq-grid">
@@ -631,17 +632,35 @@ function Faq() {
           </h2>
         </Reveal>
         <Reveal className="faq-list" delay={100}>
-          {c.faq.items.map((item) => (
-            <details key={item.q}>
-              <summary>
-                <span>{item.q}</span>
-                <span className="faq-plus" aria-hidden="true">
-                  +
-                </span>
-              </summary>
-              <p>{item.a}</p>
-            </details>
-          ))}
+          {c.faq.items.map((item, index) => {
+            const expanded = open === index
+            return (
+              <div className={`faq-item${expanded ? ' open' : ''}`} key={item.q}>
+                <button
+                  type="button"
+                  className="faq-question"
+                  aria-expanded={expanded}
+                  aria-controls={`faq-answer-${index}`}
+                  onClick={() => setOpen(expanded ? null : index)}
+                >
+                  <span>{item.q}</span>
+                  <span className="faq-plus" aria-hidden="true">
+                    +
+                  </span>
+                </button>
+                <div
+                  className="faq-answer"
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  aria-hidden={!expanded}
+                >
+                  <div className="faq-answer-inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </Reveal>
       </div>
     </section>
