@@ -459,9 +459,10 @@ a {
 
 .float-calories {
   top: 20%;
-  left: -16%;
+  right: calc(50% + 132px);
   display: grid;
   gap: 2px;
+  width: max-content;
   padding: 13px 16px;
   animation: float-y 7s ease-in-out infinite;
 }
@@ -478,6 +479,7 @@ a {
   font-family: var(--serif);
   font-size: 20px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .float-sub {
