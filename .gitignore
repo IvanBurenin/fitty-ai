@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local
+*.local
