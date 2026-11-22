@@ -354,6 +354,7 @@ a {
   padding: 86px 0 64px;
   border-bottom: 1px solid var(--line);
   background:
+    radial-gradient(600px 340px at 50% -8%, rgba(255, 255, 255, 0.06), transparent 62%),
     radial-gradient(560px 300px at 82% 0%, rgba(224, 122, 86, 0.16), transparent 62%),
     radial-gradient(500px 360px at 10% 110%, rgba(214, 163, 95, 0.12), transparent 60%),
     var(--surface);
@@ -472,7 +473,7 @@ a {
 
 .float-calories {
   top: 20%;
-  right: calc(50% + 132px);
+  right: calc(50% + 112px);
   display: grid;
   gap: 2px;
   width: max-content;
