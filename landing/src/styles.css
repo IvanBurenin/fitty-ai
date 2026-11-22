@@ -440,7 +440,7 @@ a {
   filter: blur(10px);
 }
 
-.hero-phone {
+.hero-visual .hero-phone {
   position: relative;
   z-index: 1;
   width: 292px;
@@ -459,7 +459,7 @@ a {
 
 .float-calories {
   top: 20%;
-  left: -18%;
+  left: -16%;
   display: grid;
   gap: 2px;
   padding: 13px 16px;
@@ -499,18 +499,6 @@ a {
 
 .float-ai svg {
   color: var(--gold);
-}
-
-.float-badge {
-  right: 8%;
-  top: 6%;
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  color: var(--ink);
-  animation: float-y 6s ease-in-out infinite 0.6s;
 }
 
 @keyframes float-y {
@@ -1141,7 +1129,7 @@ a {
     margin-top: 12px;
   }
 
-  .hero-phone {
+  .hero-visual .hero-phone {
     width: 270px;
   }
 
@@ -1258,13 +1246,12 @@ a {
     min-height: 500px;
   }
 
-  .hero-phone {
+  .hero-visual .hero-phone {
     width: 244px;
   }
 
   .float-calories,
-  .float-ai,
-  .float-badge {
+  .float-ai {
     display: none;
   }
 

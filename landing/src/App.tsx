@@ -399,9 +399,6 @@ function Hero() {
             <Sparkles size={16} aria-hidden="true" />
             <span>{c.hero.floatAi}</span>
           </div>
-          <div className="float float-badge" aria-hidden="true">
-            <Camera size={18} />
-          </div>
           <Phone
             screen="home"
             alt={`Fitty ${c.screens.items[0].label}`}
