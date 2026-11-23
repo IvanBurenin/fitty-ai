@@ -1194,37 +1194,6 @@ function Studio() {
   )
 }
 
-function Trust() {
-  const { lang } = useLanding()
-  const trust = TRUST[lang]
-  return (
-    <section className="section trust-section" id="about">
-      <div className="wrap">
-        <Reveal className="trust-band">
-          <div className="trust-copy">
-            <SectionLabel index="10">{trust.label}</SectionLabel>
-            <h2>{trust.title}</h2>
-            <p>{trust.body}</p>
-          </div>
-          <div className="trust-side">
-            <span className="trust-version">{trust.version}</span>
-            <div className="trust-links">
-              <a href={asset('privacy.html')}>{trust.privacy}</a>
-              <a href={asset('terms.html')}>{trust.terms}</a>
-              <a href="https://github.com/IvanBurenin/fitty-ai/issues" target="_blank" rel="noreferrer">
-                {trust.contact}
-              </a>
-              <a href={REPO} target="_blank" rel="noreferrer">
-                <Github size={14} aria-hidden="true" /> {trust.github}
-              </a>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 function MidCta() {
   const { lang } = useLanding()
   const mid = MID_CTA[lang]
@@ -1359,7 +1328,6 @@ export default function App() {
         <Languages />
         <Studio />
         <Faq />
-        <Trust />
         <Cta />
       </main>
       <Footer />
