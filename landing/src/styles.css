@@ -458,13 +458,10 @@ a {
   position: relative;
   z-index: 1;
   width: min(430px, 100%);
-  padding: 14px;
-  border: 1px solid var(--line-strong);
-  border-radius: 30px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.012)),
-    var(--surface);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   transform: rotate(-1.8deg);
 }
 
@@ -492,10 +489,11 @@ a {
 }
 
 .dish-float small {
-  color: rgba(17, 17, 18, 0.55);
+  color: var(--accent-ink);
   font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.08em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
@@ -507,29 +505,29 @@ a {
 }
 
 .dish-float-kcal {
-  top: -38px;
-  right: -30px;
+  top: -46px;
+  right: -20px;
   --tilt: 6deg;
   animation-delay: -1.2s;
 }
 
 .dish-float-protein {
-  top: 30%;
+  top: 28%;
   left: -46px;
   --tilt: -7deg;
   animation-delay: -3.1s;
 }
 
 .dish-float-fat {
-  top: 54%;
+  top: 52%;
   right: -44px;
   --tilt: 5deg;
   animation-delay: -4.4s;
 }
 
 .dish-float-carbs {
-  bottom: 4%;
-  left: -44px;
+  top: 63%;
+  left: -46px;
   --tilt: -5deg;
   animation-delay: -0.6s;
 }
@@ -549,7 +547,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 2px 6px 12px;
+  padding: 0 2px 12px;
 }
 
 .dish-ai {
@@ -576,6 +574,7 @@ a {
   aspect-ratio: 4 / 3;
   border-radius: 21px;
   background: var(--surface-2);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
 }
 
 .dish-track {
@@ -594,7 +593,7 @@ a {
 }
 
 .dish-info {
-  padding: 14px 6px 2px;
+  padding: 15px 2px 2px;
 }
 
 .dish-title-row {
@@ -656,10 +655,12 @@ a {
 }
 
 .dish-macros small {
-  color: var(--muted);
+  color: var(--ink-2);
   font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .dish-macros strong {
@@ -672,7 +673,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: 12px 6px 2px;
+  padding: 12px 2px 2px;
 }
 
 .dish-arrow {
@@ -1582,8 +1583,6 @@ a {
 
   .dish-slider {
     width: 100%;
-    padding: 12px;
-    border-radius: 26px;
   }
 
   .dish-floats {
