@@ -14,6 +14,8 @@ import {
   CalendarCheck,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Flame,
   Github,
   Globe,
@@ -34,6 +36,7 @@ import {
   type Content,
   type Lang,
 } from './content'
+import { HERO_SLIDER } from './hero-slider'
 
 const TELEGRAM = 'https://t.me/AiFittyBot'
 const REPO = 'https://github.com/IvanBurenin/fitty-ai'
@@ -361,6 +364,117 @@ function Header() {
   )
 }
 
+function DishSlider() {
+  const { lang } = useLanding()
+  const slider = HERO_SLIDER[lang]
+  const [index, setIndex] = useState(0)
+  const count = slider.dishes.length
+  const dish = slider.dishes[index]
+
+  const move = (delta: number) => {
+    setIndex((current) => (current + delta + count) % count)
+  }
+
+  return (
+    <div
+      className="dish-slider"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={slider.label}
+    >
+      <div className="dish-slider-head">
+        <span className="dish-ai">
+          <Sparkles size={14} aria-hidden="true" />
+          {slider.aiBadge}
+        </span>
+        <span className="dish-counter">
+          {index + 1} / {count}
+        </span>
+      </div>
+
+      <div className="dish-photo">
+        <div
+          className="dish-track"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {slider.dishes.map((item, itemIndex) => (
+            <img
+              key={item.key}
+              className="dish-slide"
+              src={asset(`dishes/${item.key}.webp`)}
+              alt={itemIndex === index ? item.name : ''}
+              aria-hidden={itemIndex !== index}
+              loading={itemIndex === 0 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </div>
+        <span className="dish-photo-chip">
+          {dish.kcal} {slider.kcalUnit}
+        </span>
+      </div>
+
+      <div className="dish-info" aria-live="polite">
+        <div className="dish-title-row">
+          <div>
+            <div className="dish-name">{dish.name}</div>
+            <div className="dish-portion">{dish.portion}</div>
+          </div>
+          <div className="dish-kcal">
+            <strong>{dish.kcal}</strong>
+            <span>{slider.kcalUnit}</span>
+          </div>
+        </div>
+
+        <div className="dish-macros">
+          <span>
+            <small>{slider.protein}</small>
+            <strong>{dish.protein}</strong>
+          </span>
+          <span>
+            <small>{slider.fat}</small>
+            <strong>{dish.fat}</strong>
+          </span>
+          <span>
+            <small>{slider.carbs}</small>
+            <strong>{dish.carbs}</strong>
+          </span>
+        </div>
+      </div>
+
+      <div className="dish-controls">
+        <button
+          type="button"
+          className="dish-arrow"
+          onClick={() => move(-1)}
+          aria-label={slider.prev}
+        >
+          <ChevronLeft size={17} aria-hidden="true" />
+        </button>
+        <div className="dish-dots">
+          {slider.dishes.map((item, itemIndex) => (
+            <button
+              key={item.key}
+              type="button"
+              className={`dish-dot${itemIndex === index ? ' active' : ''}`}
+              onClick={() => setIndex(itemIndex)}
+              aria-label={item.name}
+              aria-current={itemIndex === index}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          className="dish-arrow"
+          onClick={() => move(1)}
+          aria-label={slider.next}
+        >
+          <ChevronRight size={17} aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function Hero() {
   const { c } = useLanding()
   return (
@@ -391,20 +505,7 @@ function Hero() {
 
         <Reveal className="hero-visual" delay={120}>
           <div className="hero-halo" aria-hidden="true" />
-          <div className="float float-calories">
-            <span className="float-label">{c.hero.floatLabel}</span>
-            <strong>{c.hero.floatTitle}</strong>
-            <span className="float-sub">{c.hero.floatSub}</span>
-          </div>
-          <div className="float float-ai">
-            <Sparkles size={16} aria-hidden="true" />
-            <span>{c.hero.floatAi}</span>
-          </div>
-          <Phone
-            screen="home"
-            alt={`Fitty ${c.screens.items[0].label}`}
-            className="hero-phone"
-          />
+          <DishSlider />
         </Reveal>
       </div>
     </section>
