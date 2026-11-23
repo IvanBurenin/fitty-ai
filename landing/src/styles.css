@@ -462,7 +462,6 @@ a {
   border: 0;
   border-radius: 0;
   background: transparent;
-  transform: rotate(-1.8deg);
 }
 
 .dish-floats {
@@ -564,6 +563,7 @@ a {
   border-radius: 21px;
   background: var(--surface-2);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  transform: rotate(-1.8deg);
 }
 
 .dish-track {
