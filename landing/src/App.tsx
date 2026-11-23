@@ -357,6 +357,16 @@ function Header() {
             {c.headerCta}
             <ArrowUpRight size={15} aria-hidden="true" />
           </a>
+          <a
+            className="header-telegram"
+            href={TELEGRAM}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={c.headerCta}
+            title={c.headerCta}
+          >
+            <Send size={18} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </header>
