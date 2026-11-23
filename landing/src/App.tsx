@@ -408,9 +408,6 @@ function DishSlider() {
             />
           ))}
         </div>
-        <span className="dish-photo-chip">
-          {dish.kcal} {slider.kcalUnit}
-        </span>
       </div>
 
       <div className="dish-info" aria-live="polite">
@@ -470,6 +467,25 @@ function DishSlider() {
         >
           <ChevronRight size={17} aria-hidden="true" />
         </button>
+      </div>
+
+      <div className="dish-floats" aria-hidden="true">
+        <span className="dish-float dish-float-kcal">
+          <strong>{dish.kcal}</strong>
+          <small>{slider.kcalUnit}</small>
+        </span>
+        <span className="dish-float dish-float-protein">
+          <small>{slider.protein}</small>
+          <strong>{dish.protein}</strong>
+        </span>
+        <span className="dish-float dish-float-fat">
+          <small>{slider.fat}</small>
+          <strong>{dish.fat}</strong>
+        </span>
+        <span className="dish-float dish-float-carbs">
+          <small>{slider.carbs}</small>
+          <strong>{dish.carbs}</strong>
+        </span>
       </div>
     </div>
   )
