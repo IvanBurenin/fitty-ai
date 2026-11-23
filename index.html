@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0b0c" />
     <title>Fitty — AI food diary in Telegram</title>
+    <meta name="author" content="Ivan Burenin" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
       content="A calm food diary in Telegram. Snap a photo, say what you ate, or ask AI — Fitty counts calories and macros, suggests recipes, and keeps your goal in sight."
@@ -19,10 +21,24 @@
     <link rel="alternate" hreflang="x-default" href="https://ivanburenin.github.io/fitty-ai/" />
     <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="./dishes/caesar-860.webp"
+      imagesrcset="./dishes/caesar-430.webp 430w, ./dishes/caesar-860.webp 860w"
+      imagesizes="(max-width: 560px) 100vw, 430px"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Fitty" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ru_RU" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="zh_CN" />
     <meta property="og:title" content="Fitty — eat well, let AI do the counting" />
     <meta
       property="og:description"
@@ -32,6 +48,7 @@
     <meta property="og:image" content="https://ivanburenin.github.io/fitty-ai/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fitty — a calm AI food diary in Telegram" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Fitty — eat well, let AI do the counting" />
     <meta
@@ -39,11 +56,12 @@
       content="A Telegram food diary with photo recognition, AI recipes and calm progress."
     />
     <meta name="twitter:image" content="https://ivanburenin.github.io/fitty-ai/og.png" />
+    <meta name="twitter:image:alt" content="Fitty — a calm AI food diary in Telegram" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400;1,7..72,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&family=Literata:opsz,wght@7..72,500&display=swap"
       rel="stylesheet"
     />
 
@@ -61,8 +79,48 @@
         "author": { "@type": "Person", "name": "Ivan Burenin", "url": "https://github.com/IvanBurenin" }
       }
     </script>
-    <script type="module" crossorigin src="/fitty-ai/assets/index-CPSsyEs8.js"></script>
-    <link rel="stylesheet" crossorigin href="/fitty-ai/assets/index-CbQkFVJ3.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Fitty free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Open the bot and start logging — no install, no separate account. The core diary, targets, recipes and AI assistant are available from day one."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install an app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Fitty lives inside Telegram as a Mini App and opens from the bot's menu button on iOS, Android, desktop and web."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How accurate is the AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Photo and text estimates are a starting point: you can adjust grams and macros before saving. The more you confirm, the cleaner your diary."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to my data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your diary is tied to your Telegram account and used only to run Fitty. Photos and voice notes are processed by AI providers to produce estimates. Your data is never sold, shown to other users or used in leaderboards."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="/fitty-ai/assets/index-9uI5rqYX.js"></script>
+    <link rel="stylesheet" crossorigin href="/fitty-ai/assets/index-BnDGxZvj.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

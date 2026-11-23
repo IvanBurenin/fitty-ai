@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ivanburenin.github.io/fitty-ai/sitemap.xml
