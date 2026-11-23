@@ -26,7 +26,6 @@ import {
   Scale,
   Send,
   ShieldCheck,
-  Sparkles,
   Target,
 } from 'lucide-react'
 import {
@@ -383,10 +382,6 @@ function DishSlider() {
       aria-label={slider.label}
     >
       <div className="dish-slider-head">
-        <span className="dish-ai">
-          <Sparkles size={14} aria-hidden="true" />
-          {slider.aiBadge}
-        </span>
         <span className="dish-counter">
           {index + 1} / {count}
         </span>
@@ -498,10 +493,6 @@ function Hero() {
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <Reveal>
-            <p className="eyebrow">
-              <span className="dot" aria-hidden="true" />
-              {c.hero.eyebrow}
-            </p>
             <h1>
               <Rich text={c.hero.title} />
             </h1>
@@ -515,7 +506,6 @@ function Hero() {
                 {c.hero.secondary}
               </a>
             </div>
-            <p className="hero-meta">{c.hero.meta}</p>
           </Reveal>
         </div>
 

@@ -545,20 +545,9 @@ a {
 .dish-slider-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   padding: 0 2px 12px;
-}
-
-.dish-ai {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--gold);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .dish-counter {
@@ -593,6 +582,8 @@ a {
 }
 
 .dish-info {
+  position: relative;
+  z-index: 2;
   padding: 15px 2px 2px;
 }
 
@@ -604,11 +595,14 @@ a {
 }
 
 .dish-name {
+  color: var(--ink);
   font-family: var(--sans);
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  opacity: 1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
 }
 
 .dish-portion {
@@ -904,10 +898,11 @@ a {
 
 .pillar h3 {
   margin: 0 0 10px;
-  font-family: var(--serif);
-  font-size: 23px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .pillar p {
@@ -965,9 +960,11 @@ a {
 
 .screen-caption h3 {
   margin: 7px 0 6px;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 500;
+  font-family: var(--sans);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .screen-caption p {
