@@ -28,7 +28,7 @@ export type Content = {
   meta: { title: string; description: string; ogLocale: string }
   langLabel: string
   headerCta: string
-  nav: { app: string; ai: string; recipes: string; languages: string; faq: string }
+  nav: { app: string; ai: string; recipes: string; progress: string; languages: string; faq: string }
   hero: {
     eyebrow: string
     title: string
@@ -98,6 +98,7 @@ const EN: Content = {
     app: 'The app',
     ai: 'AI',
     recipes: 'Recipes',
+    progress: 'Progress',
     languages: 'Languages',
     faq: 'FAQ',
   },
@@ -222,7 +223,7 @@ const EN: Content = {
       },
       {
         q: 'What happens to my data?',
-        a: 'Your diary and profile live in your own account and are used only for calculations. They are not shared with other users or shown in any leaderboard.',
+        a: 'Your diary is tied to your Telegram account and used only to run Fitty. Photos and voice notes are processed by AI providers to produce estimates. Your data is never sold, shown to other users or used in leaderboards.',
       },
     ],
   },
@@ -254,6 +255,7 @@ const RU: Content = {
     app: 'Приложение',
     ai: 'ИИ',
     recipes: 'Рецепты',
+    progress: 'Прогресс',
     languages: 'Языки',
     faq: 'Вопросы',
   },
@@ -378,7 +380,7 @@ const RU: Content = {
       },
       {
         q: 'Что происходит с данными?',
-        a: 'Дневник и профиль хранятся в вашем аккаунте и используются только для расчётов. Они не передаются другим пользователям и не попадают в рейтинги.',
+        a: 'Дневник привязан к вашему аккаунту Telegram и используется только для работы Fitty. Фото и голосовые обрабатываются провайдерами ИИ, чтобы получить оценку. Данные не продаются, не показываются другим пользователям и не попадают в рейтинги.',
       },
     ],
   },
@@ -410,6 +412,7 @@ const DE: Content = {
     app: 'Die App',
     ai: 'KI',
     recipes: 'Rezepte',
+    progress: 'Fortschritt',
     languages: 'Sprachen',
     faq: 'FAQ',
   },
@@ -534,7 +537,7 @@ const DE: Content = {
       },
       {
         q: 'Was passiert mit meinen Daten?',
-        a: 'Tagebuch und Profil liegen in deinem Konto und dienen nur den Berechnungen. Sie werden nicht mit anderen geteilt und erscheinen in keiner Rangliste.',
+        a: 'Dein Tagebuch ist mit deinem Telegram-Konto verbunden und wird nur für Fitty verwendet. Fotos und Sprachnachrichten werden von KI-Anbietern verarbeitet, um Schätzungen zu erstellen. Daten werden nicht verkauft, anderen nicht angezeigt und erscheinen in keiner Rangliste.',
       },
     ],
   },
@@ -566,6 +569,7 @@ const FR: Content = {
     app: "L'app",
     ai: 'IA',
     recipes: 'Recettes',
+    progress: 'Progrès',
     languages: 'Langues',
     faq: 'FAQ',
   },
@@ -690,7 +694,7 @@ const FR: Content = {
       },
       {
         q: 'Que deviennent mes données ?',
-        a: 'Journal et profil restent dans votre compte et servent uniquement aux calculs. Ils ne sont ni partagés ni affichés dans un classement.',
+        a: 'Votre journal est lié à votre compte Telegram et sert uniquement à Fitty. Les photos et messages vocaux sont traités par des fournisseurs d’IA pour produire des estimations. Vos données ne sont ni vendues, ni montrées à d’autres, ni affichées dans un classement.',
       },
     ],
   },
@@ -722,6 +726,7 @@ const ES: Content = {
     app: 'La app',
     ai: 'IA',
     recipes: 'Recetas',
+    progress: 'Progreso',
     languages: 'Idiomas',
     faq: 'FAQ',
   },
@@ -846,7 +851,7 @@ const ES: Content = {
       },
       {
         q: '¿Qué pasa con mis datos?',
-        a: 'El diario y el perfil están en tu cuenta y solo se usan para los cálculos. No se comparten ni aparecen en clasificaciones.',
+        a: 'Tu diario está vinculado a tu cuenta de Telegram y solo se usa para Fitty. Las fotos y notas de voz las procesan proveedores de IA para generar estimaciones. Tus datos no se venden, no se muestran a otros ni aparecen en clasificaciones.',
       },
     ],
   },
@@ -878,6 +883,7 @@ const ZH: Content = {
     app: '应用',
     ai: 'AI',
     recipes: '食谱',
+    progress: '进度',
     languages: '语言',
     faq: '问答',
   },
@@ -1002,7 +1008,7 @@ const ZH: Content = {
       },
       {
         q: '我的数据怎么处理？',
-        a: '日记和资料保存在你的账号里，只用于计算，不会分享给其他用户，也不会出现在排行榜中。',
+        a: '日记与你的 Telegram 账号绑定，仅用于运行 Fitty。照片和语音会由 AI 服务商处理以生成估算。数据不会出售、不会展示给其他用户，也不会出现在排行榜中。',
       },
     ],
   },

@@ -20,6 +20,8 @@ import {
   Github,
   Globe,
   Languages as LanguagesIcon,
+  Maximize2,
+  Menu,
   MessageSquare,
   Mic,
   Refrigerator,
@@ -27,6 +29,7 @@ import {
   Send,
   ShieldCheck,
   Target,
+  X,
 } from 'lucide-react'
 import {
   CONTENT,
@@ -36,11 +39,42 @@ import {
   type Lang,
 } from './content'
 import { HERO_SLIDER } from './hero-slider'
+import {
+  GALLERY_UI,
+  HOW,
+  MID_CTA,
+  STUDIO,
+  TRUST,
+} from './sections'
 
 const TELEGRAM = 'https://t.me/AiFittyBot'
 const REPO = 'https://github.com/IvanBurenin/fitty-ai'
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`
+
+const DISH_IMAGES: Record<
+  string,
+  { src: string; srcSet: string; width: number; height: number }
+> = {
+  caesar: {
+    src: 'dishes/caesar-860.webp',
+    srcSet: 'dishes/caesar-430.webp 430w, dishes/caesar-860.webp 860w',
+    width: 1200,
+    height: 900,
+  },
+  borscht: {
+    src: 'dishes/borscht-860.webp',
+    srcSet: 'dishes/borscht-430.webp 430w, dishes/borscht-860.webp 860w',
+    width: 1707,
+    height: 1280,
+  },
+  bolognese: {
+    src: 'dishes/bolognese.webp',
+    srcSet: 'dishes/bolognese-430.webp 430w, dishes/bolognese.webp 571w',
+    width: 571,
+    height: 360,
+  },
+}
 
 interface LandingValue {
   c: Content
@@ -161,16 +195,30 @@ function Phone({
   screen,
   alt,
   className = '',
+  priority = false,
+  sizes = '(max-width: 600px) 218px, 320px',
 }: {
   screen: string
   alt: string
   className?: string
+  priority?: boolean
+  sizes?: string
 }) {
   const { lang } = useLanding()
+  const base = `screens/${lang}/${screen}`
   return (
     <div className={`phone ${className}`}>
       <div className="phone-screen">
-        <img src={asset(`screens/${lang}/${screen}.png`)} alt={alt} loading="lazy" />
+        <img
+          src={asset(`${base}-780.webp`)}
+          srcSet={`${asset(`${base}-480.webp`)} 480w, ${asset(`${base}-780.webp`)} 780w`}
+          sizes={sizes}
+          alt={alt}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          width={780}
+          height={1688}
+        />
       </div>
     </div>
   )
@@ -331,20 +379,48 @@ function LanguageSwitcher() {
 }
 
 function Header() {
-  const { c } = useLanding()
+  const { c, lang } = useLanding()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const studio = STUDIO[lang]
+  const links = [
+    ['#screens', c.nav.app],
+    ['#ai', c.nav.ai],
+    ['#recipes', c.nav.recipes],
+    ['#progress', c.nav.progress],
+    ['#languages', c.nav.languages],
+    ['#studio', studio.label],
+    ['#faq', c.nav.faq],
+  ] as const
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
   return (
     <header className="site-header">
       <div className="header-inner">
         <a className="brand" href="#top" aria-label="Fitty home">
-          <img src={asset('app-icon.png')} width={32} height={32} alt="" />
+          <img
+            src={asset('app-icon-64.webp')}
+            srcSet={`${asset('app-icon-64.webp')} 64w, ${asset('app-icon-128.webp')} 128w`}
+            sizes="32px"
+            width={32}
+            height={32}
+            alt=""
+          />
           <span>Fitty</span>
         </a>
         <nav className="nav" aria-label="Sections">
-          <a href="#screens">{c.nav.app}</a>
-          <a href="#ai">{c.nav.ai}</a>
-          <a href="#recipes">{c.nav.recipes}</a>
-          <a href="#languages">{c.nav.languages}</a>
-          <a href="#faq">{c.nav.faq}</a>
+          {links.map(([href, label]) => (
+            <a key={href} href={href}>
+              {label}
+            </a>
+          ))}
         </nav>
         <div className="header-actions">
           <LanguageSwitcher />
@@ -367,8 +443,44 @@ function Header() {
           >
             <Send size={18} aria-hidden="true" />
           </a>
+          <button
+            type="button"
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen((value) => !value)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label="Menu"
+          >
+            {menuOpen ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}
+          </button>
         </div>
       </div>
+      {menuOpen ? (
+        <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)}>
+          <nav
+            className="mobile-menu"
+            id="mobile-nav"
+            aria-label="Sections"
+            onClick={(event) => event.stopPropagation()}
+          >
+            {links.map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)}>
+                {label}
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </a>
+            ))}
+            <a
+              className="mobile-menu-cta"
+              href={TELEGRAM}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {c.headerCta}
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          </nav>
+        </div>
+      ) : null}
     </header>
   )
 }
@@ -391,27 +503,38 @@ function DishSlider() {
       aria-roledescription="carousel"
       aria-label={slider.label}
     >
-      <div className="dish-slider-head">
-        <span className="dish-counter">
-          {index + 1} / {count}
-        </span>
-      </div>
-
       <div className="dish-photo">
         <div
           className="dish-track"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
-          {slider.dishes.map((item, itemIndex) => (
-            <img
-              key={item.key}
-              className="dish-slide"
-              src={asset(`dishes/${item.key}.webp`)}
-              alt={itemIndex === index ? item.name : ''}
-              aria-hidden={itemIndex !== index}
-              loading={itemIndex === 0 ? 'eager' : 'lazy'}
-            />
-          ))}
+          {slider.dishes.map((item, itemIndex) => {
+            const image = DISH_IMAGES[item.key]
+            return (
+              <img
+                key={item.key}
+                className="dish-slide"
+                src={asset(image?.src ?? `dishes/${item.key}.webp`)}
+                srcSet={
+                  image
+                    ? image.srcSet
+                        .split(', ')
+                        .map((candidate) => {
+                          const [path, descriptor] = candidate.split(' ')
+                          return `${asset(path)} ${descriptor}`
+                        })
+                        .join(', ')
+                    : undefined
+                }
+                sizes="(max-width: 560px) 100vw, 430px"
+                width={image?.width}
+                height={image?.height}
+                alt={itemIndex === index ? item.name : ''}
+                aria-hidden={itemIndex !== index}
+                loading={itemIndex === 0 ? 'eager' : 'lazy'}
+              />
+            )
+          })}
         </div>
       </div>
 
@@ -530,6 +653,39 @@ function Hero() {
 
 const PILLAR_ICONS = [Camera, Target, Refrigerator]
 
+function HowItWorks() {
+  const { lang } = useLanding()
+  const how = HOW[lang]
+  return (
+    <section className="section how-section" id="how">
+      <div className="wrap">
+        <Reveal>
+          <SectionLabel index="02">{how.label}</SectionLabel>
+          <div className="section-head">
+            <h2 className="section-title">{how.title}</h2>
+            <p className="section-lead">{how.lead}</p>
+          </div>
+        </Reveal>
+        <div className="how-steps">
+          {how.steps.map((step, index) => (
+            <Reveal key={step.title} delay={index * 90} className="how-step">
+              <span className="how-number">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={200}>
+          <a className="button button-dark" href={TELEGRAM} target="_blank" rel="noreferrer">
+            {how.cta}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Pillars() {
   const { c } = useLanding()
   return (
@@ -560,13 +716,44 @@ function Pillars() {
   )
 }
 
-function Screens() {
-  const { c } = useLanding()
+function ScreensGallery() {
+  const { c, lang } = useLanding()
+  const ui = GALLERY_UI[lang]
+  const [active, setActive] = useState(0)
+  const [lightbox, setLightbox] = useState<number | null>(null)
+  const count = c.screens.items.length
+  const current = c.screens.items[active]
+  const swipeStart = useRef<number | null>(null)
+
+  const move = (delta: number) => {
+    setActive((value) => (value + delta + count) % count)
+  }
+
+  useEffect(() => {
+    if (lightbox === null) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setLightbox(null)
+      if (event.key === 'ArrowLeft') {
+        setLightbox((value) => (value === null ? null : (value - 1 + count) % count))
+      }
+      if (event.key === 'ArrowRight') {
+        setLightbox((value) => (value === null ? null : (value + 1) % count))
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = previous
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [lightbox, count])
+
   return (
     <section className="section screens-section" id="screens">
       <div className="wrap">
         <Reveal>
-          <SectionLabel index="02">{c.screens.label}</SectionLabel>
+          <SectionLabel index="03">{c.screens.label}</SectionLabel>
           <div className="section-head">
             <h2 className="section-title">
               <Rich text={c.screens.title} />
@@ -575,23 +762,153 @@ function Screens() {
           </div>
         </Reveal>
         <Reveal delay={120}>
-          <div className="screens-track" role="list">
-            {c.screens.items.map((screen, index) => (
-              <article className="screen-card" key={c.screenKeys[index]} role="listitem">
+          <div
+            className="screens-gallery"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label={c.screens.label}
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowLeft') {
+                event.preventDefault()
+                move(-1)
+              }
+              if (event.key === 'ArrowRight') {
+                event.preventDefault()
+                move(1)
+              }
+              if (event.key === 'Home') {
+                event.preventDefault()
+                setActive(0)
+              }
+              if (event.key === 'End') {
+                event.preventDefault()
+                setActive(count - 1)
+              }
+            }}
+          >
+            <div className="screens-stage">
+              <button
+                type="button"
+                className="screens-featured"
+                onClick={() => setLightbox(active)}
+                aria-label={`${ui.view}: ${current.label}`}
+                onTouchStart={(event) => {
+                  swipeStart.current = event.touches[0]?.clientX ?? null
+                }}
+                onTouchEnd={(event) => {
+                  if (swipeStart.current === null) return
+                  const end = event.changedTouches[0]?.clientX ?? swipeStart.current
+                  const delta = end - swipeStart.current
+                  swipeStart.current = null
+                  if (Math.abs(delta) > 40) move(delta > 0 ? -1 : 1)
+                }}
+              >
                 <Phone
-                  screen={c.screenKeys[index]}
-                  alt={`Fitty ${screen.label} screen`}
+                  screen={c.screenKeys[active]}
+                  alt={current.label}
+                  priority={active === 0}
+                  sizes="(max-width: 600px) 260px, 340px"
                 />
-                <div className="screen-caption">
-                  <span className="screen-label">{screen.label}</span>
-                  <h3>{screen.title}</h3>
-                  <p>{screen.text}</p>
-                </div>
-              </article>
-            ))}
+                <span className="screens-expand">
+                  <Maximize2 size={15} aria-hidden="true" /> {ui.view}
+                </span>
+              </button>
+              <div className="screens-stage-controls">
+                <button
+                  type="button"
+                  className="screens-arrow"
+                  onClick={() => move(-1)}
+                  aria-label={ui.prev}
+                >
+                  <ChevronLeft size={17} aria-hidden="true" />
+                </button>
+                <span>
+                  {active + 1} / {count}
+                </span>
+                <button
+                  type="button"
+                  className="screens-arrow"
+                  onClick={() => move(1)}
+                  aria-label={ui.next}
+                >
+                  <ChevronRight size={17} aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+            <div className="screens-list" role="tablist" aria-label={c.screens.label}>
+              {c.screens.items.map((screen, index) => (
+                <button
+                  key={c.screenKeys[index]}
+                  type="button"
+                  role="tab"
+                  aria-selected={index === active}
+                  className={`screens-list-item${index === active ? ' active' : ''}`}
+                  onClick={() => setActive(index)}
+                >
+                  <span className="screens-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="screens-list-copy">
+                    <span>{screen.label}</span>
+                    <strong>{screen.title}</strong>
+                  </span>
+                  <ChevronRight size={15} aria-hidden="true" />
+                </button>
+              ))}
+            </div>
           </div>
+          <p className="screens-hint">{ui.hint}</p>
         </Reveal>
       </div>
+
+      {lightbox !== null ? (
+        <div
+          className="screen-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={c.screens.items[lightbox].label}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setLightbox(null)
+          }}
+        >
+          <button
+            type="button"
+            className="screen-lightbox-close"
+            onClick={() => setLightbox(null)}
+            aria-label={ui.close}
+            autoFocus
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="screen-lightbox-arrow prev"
+            onClick={() => setLightbox((value) => (value === null ? null : (value - 1 + count) % count))}
+            aria-label={ui.prev}
+          >
+            <ChevronLeft size={22} aria-hidden="true" />
+          </button>
+          <div className="screen-lightbox-stage">
+            <Phone
+              screen={c.screenKeys[lightbox]}
+              alt={c.screens.items[lightbox].label}
+              priority
+              sizes="(max-width: 600px) 86vw, 390px"
+            />
+            <div className="screen-lightbox-caption">
+              <span>{c.screens.items[lightbox].label}</span>
+              <strong>{c.screens.items[lightbox].title}</strong>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="screen-lightbox-arrow next"
+            onClick={() => setLightbox((value) => (value === null ? null : (value + 1) % count))}
+            aria-label={ui.next}
+          >
+            <ChevronRight size={22} aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
     </section>
   )
 }
@@ -602,7 +919,7 @@ function AiSection() {
     <section className="section" id="ai">
       <div className="wrap split">
         <Reveal>
-          <SectionLabel index="03">{c.ai.label}</SectionLabel>
+          <SectionLabel index="04">{c.ai.label}</SectionLabel>
           <h2 className="section-title">
             <Rich text={c.ai.title} />
           </h2>
@@ -645,7 +962,7 @@ function RecipesSection() {
           <Phone screen="recipes" alt={`Fitty ${c.screens.items[3].label}`} />
         </Reveal>
         <Reveal>
-          <SectionLabel index="04">{c.recipes.label}</SectionLabel>
+          <SectionLabel index="05">{c.recipes.label}</SectionLabel>
           <h2 className="section-title">
             <Rich text={c.recipes.title} />
           </h2>
@@ -674,7 +991,7 @@ function ProgressSection() {
     <section className="section" id="progress">
       <div className="wrap split">
         <Reveal>
-          <SectionLabel index="05">{c.progress.label}</SectionLabel>
+          <SectionLabel index="06">{c.progress.label}</SectionLabel>
           <h2 className="section-title">
             <Rich text={c.progress.title} />
           </h2>
@@ -708,7 +1025,7 @@ function Languages() {
     <section className="section languages-section" id="languages">
       <div className="wrap">
         <Reveal>
-          <SectionLabel index="06">{c.languages.label}</SectionLabel>
+          <SectionLabel index="07">{c.languages.label}</SectionLabel>
           <div className="languages-head">
             <h2 className="section-title">
               <Rich text={c.languages.title} />
@@ -743,7 +1060,7 @@ function Faq() {
     <section className="section" id="faq">
       <div className="wrap faq-grid">
         <Reveal>
-          <SectionLabel index="07">{c.faq.label}</SectionLabel>
+          <SectionLabel index="09">{c.faq.label}</SectionLabel>
           <h2 className="section-title">
             <Rich text={c.faq.title} />
           </h2>
@@ -784,6 +1101,151 @@ function Faq() {
   )
 }
 
+function Studio() {
+  const { lang } = useLanding()
+  const studio = STUDIO[lang]
+  return (
+    <section className="section studio-section" id="studio">
+      <div className="wrap">
+        <Reveal>
+          <SectionLabel index="08">{studio.label}</SectionLabel>
+          <div className="studio-grid">
+            <div className="studio-brand">
+              <svg className="studio-mark" viewBox="0 0 40 32" aria-hidden="true">
+                <path d="M0 32 L40 0 L40 32 Z" fill="currentColor" />
+              </svg>
+              <div>
+                <h2 className="studio-title">
+                  ESPADA
+                  <br />
+                  ENTERTAINMENT
+                </h2>
+                <p className="studio-tagline">{studio.tagline}</p>
+              </div>
+            </div>
+
+            <div className="studio-copy">
+              <p className="studio-statement">{studio.title}</p>
+
+              <div className="studio-stats">
+                {studio.stats.map((stat) => (
+                  <div key={stat.label}>
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="studio-projects">
+                <p className="studio-projects-label">{studio.projectsLabel}</p>
+                <ul className="studio-projects-list">
+                  {studio.projects.map((project) => (
+                    <li key={project.name}>
+                      <a
+                        className="studio-project"
+                        href={project.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span className="studio-project-mark" aria-hidden="true">
+                          {project.icon === 'espada' ? (
+                            <svg viewBox="0 0 40 32">
+                              <path d="M0 32 L40 0 L40 32 Z" fill="currentColor" />
+                            </svg>
+                          ) : (
+                            <img
+                              src={asset(
+                                project.icon === 'tracky'
+                                  ? 'tracky-icon.webp'
+                                  : project.icon === 'yoggy'
+                                    ? 'yoggy-icon.webp'
+                                    : 'app-icon-128.webp'
+                              )}
+                              alt=""
+                              width={34}
+                              height={34}
+                            />
+                          )}
+                        </span>
+                        <span className="studio-project-name">{project.name}</span>
+                        <span className="studio-project-role">{project.role}</span>
+                        <ArrowUpRight size={15} aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="studio-links">
+                <a href="https://www.youtube.com/@espadasportsru" target="_blank" rel="noreferrer">
+                  <span className="studio-link-icon">▶</span>
+                  {studio.youtubeLabel} <span>{studio.youtubeHandle}</span>
+                </a>
+                <a href={REPO} target="_blank" rel="noreferrer">
+                  <Github size={15} aria-hidden="true" />
+                  {studio.githubLabel}
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Trust() {
+  const { lang } = useLanding()
+  const trust = TRUST[lang]
+  return (
+    <section className="section trust-section" id="about">
+      <div className="wrap">
+        <Reveal className="trust-band">
+          <div className="trust-copy">
+            <SectionLabel index="10">{trust.label}</SectionLabel>
+            <h2>{trust.title}</h2>
+            <p>{trust.body}</p>
+          </div>
+          <div className="trust-side">
+            <span className="trust-version">{trust.version}</span>
+            <div className="trust-links">
+              <a href={asset('privacy.html')}>{trust.privacy}</a>
+              <a href={asset('terms.html')}>{trust.terms}</a>
+              <a href="https://github.com/IvanBurenin/fitty-ai/issues" target="_blank" rel="noreferrer">
+                {trust.contact}
+              </a>
+              <a href={REPO} target="_blank" rel="noreferrer">
+                <Github size={14} aria-hidden="true" /> {trust.github}
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function MidCta() {
+  const { lang } = useLanding()
+  const mid = MID_CTA[lang]
+  return (
+    <section className="section mid-cta-section">
+      <div className="wrap">
+        <Reveal className="mid-cta">
+          <div>
+            <p className="eyebrow eyebrow-light">{mid.title}</p>
+            <p className="mid-cta-body">{mid.body}</p>
+          </div>
+          <a className="button button-light" href={TELEGRAM} target="_blank" rel="noreferrer">
+            <Send size={16} aria-hidden="true" />
+            {mid.button}
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Cta() {
   const { c } = useLanding()
   return (
@@ -800,6 +1262,19 @@ function Cta() {
             <Send size={16} aria-hidden="true" />
             {c.cta.button}
           </a>
+          <div className="cta-qr">
+            <img
+              src={asset('telegram-qr.webp')}
+              width={92}
+              height={92}
+              alt="@AiFittyBot QR code"
+              loading="lazy"
+            />
+            <div>
+              <strong>@AiFittyBot</strong>
+              <span>t.me/AiFittyBot</span>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -807,12 +1282,20 @@ function Cta() {
 }
 
 function Footer() {
-  const { c } = useLanding()
+  const { c, lang } = useLanding()
+  const trust = TRUST[lang]
   return (
     <footer className="site-footer">
       <div className="wrap footer-inner">
         <div className="footer-brand">
-          <img src={asset('app-icon.png')} width={28} height={28} alt="" />
+          <img
+            src={asset('app-icon-64.webp')}
+            srcSet={`${asset('app-icon-64.webp')} 64w, ${asset('app-icon-128.webp')} 128w`}
+            sizes="28px"
+            width={28}
+            height={28}
+            alt=""
+          />
           <div>
             <strong>Fitty</strong>
             <span>{c.footer.tagline}</span>
@@ -825,6 +1308,8 @@ function Footer() {
           <a href={REPO} target="_blank" rel="noreferrer">
             <Github size={14} aria-hidden="true" /> {c.footer.github}
           </a>
+          <a href={asset('privacy.html')}>{trust.privacy}</a>
+          <a href={asset('terms.html')}>{trust.terms}</a>
           <a href="https://github.com/IvanBurenin" target="_blank" rel="noreferrer">
             {c.footer.author}
           </a>
@@ -865,12 +1350,16 @@ export default function App() {
       <main id="main">
         <Hero />
         <Pillars />
-        <Screens />
+        <HowItWorks />
+        <ScreensGallery />
+        <MidCta />
         <AiSection />
         <RecipesSection />
         <ProgressSection />
         <Languages />
+        <Studio />
         <Faq />
+        <Trust />
         <Cta />
       </main>
       <Footer />

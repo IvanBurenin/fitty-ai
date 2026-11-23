@@ -1,0 +1,24 @@
+{
+  "name": "Fitty — AI food diary in Telegram",
+  "short_name": "Fitty",
+  "description": "A calm food diary in Telegram: photo, voice or text in, calories and macros out.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

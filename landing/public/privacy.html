@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy — Fitty</title>
+    <meta
+      name="description"
+      content="How Fitty handles your Telegram data, food entries, photos, voice messages and AI processing."
+    />
+    <meta name="theme-color" content="#efefe9" />
+    <link rel="canonical" href="https://ivanburenin.github.io/fitty-ai/privacy.html" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #efefe9;
+        --ink: #111112;
+        --muted: #66665f;
+        --line: rgba(0, 0, 0, 0.13);
+        --serif: 'Literata', 'Songti SC', Georgia, serif;
+        --sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+        text-decoration-color: rgba(0, 0, 0, 0.3);
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        text-decoration-color: currentColor;
+      }
+      .shell {
+        width: 100%;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 24px 56px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+      }
+      .brand img {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+      }
+      .header-spacer {
+        flex: 1;
+      }
+      .langs {
+        display: inline-flex;
+        gap: 4px;
+        padding: 3px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+      .langs button {
+        padding: 6px 11px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 12.5px;
+        cursor: pointer;
+      }
+      .langs button[aria-pressed='true'] {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      main {
+        padding-top: 42px;
+      }
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 700px;
+        margin: 0 0 16px;
+        font-family: var(--serif);
+        font-size: clamp(32px, 5vw, 46px);
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
+      .lead {
+        max-width: 640px;
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+      .updated {
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+      }
+      section {
+        padding: 26px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      section:first-of-type {
+        margin-top: 26px;
+        border-top: 1px solid var(--line);
+      }
+      h2 {
+        margin: 0 0 9px;
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+      }
+      p {
+        margin: 0 0 10px;
+      }
+      p:last-child,
+      ul:last-child {
+        margin-bottom: 0;
+      }
+      ul {
+        margin: 0 0 10px;
+        padding-left: 20px;
+      }
+      li + li {
+        margin-top: 4px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 22px;
+        align-items: center;
+        padding-top: 26px;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+      footer a {
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 2px;
+      }
+      footer a:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+      @media (max-width: 560px) {
+        .shell {
+          padding: 0 18px 40px;
+        }
+        main {
+          padding-top: 30px;
+        }
+        .lead {
+          font-size: 15.5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="./">
+          <img src="./app-icon-64.webp" width="30" height="30" alt="" />
+          Fitty
+        </a>
+        <span class="header-spacer"></span>
+        <div class="langs" role="group" aria-label="Language">
+          <button type="button" data-lang-btn="en">English</button>
+          <button type="button" data-lang-btn="ru">Русский</button>
+        </div>
+      </header>
+
+      <main>
+        <div data-copy="en">
+          <p class="eyebrow">Legal</p>
+          <h1>Privacy policy</h1>
+          <p class="lead">
+            Fitty is a small, independent Telegram app. This page explains what it stores, why, and how you can
+            remove it.
+          </p>
+          <p class="updated">Last updated: November 2026 · v0.1</p>
+
+          <section>
+            <h2>What we collect</h2>
+            <ul>
+              <li>Your Telegram user ID, first name and username — to connect the bot and Mini App to your diary.</li>
+              <li>Food entries you confirm: meals, portions, calories, macros, dates and notes.</li>
+              <li>Goals and optional profile data you set: calorie and macro targets, weight check-ins, pantry items.</li>
+              <li>Photos and voice messages you send for analysis. They are processed to produce an estimate.</li>
+              <li>Language preference and basic technical logs needed to keep the service running.</li>
+            </ul>
+            <p class="muted">
+              We do not ask for your email, phone number, precise location, contacts or payment details.
+            </p>
+          </section>
+
+          <section>
+            <h2>How it is used</h2>
+            <p>
+              Your data is used only to run Fitty: recognise food, count calories and macros, show your diary and
+              progress, generate recipes, and answer your requests. We never sell data and never show ads.
+            </p>
+          </section>
+
+          <section>
+            <h2>AI processing</h2>
+            <p>
+              Photos, voice notes and text you submit may be sent to AI model providers for recognition and
+              estimation. They process the content to return a result. We do not use your content to train models.
+              Providers handle data under their own terms and privacy policies.
+            </p>
+            <p class="muted">
+              Estimates are approximate. You can edit or discard any result before it is saved to your diary.
+            </p>
+          </section>
+
+          <section>
+            <h2>Storage and security</h2>
+            <p>
+              Data is stored in a PostgreSQL database on a server controlled by the developer. Access is limited to
+              the application. Data is transmitted over HTTPS. No system is perfectly secure, but we keep the
+              surface small: no advertising trackers, no third-party analytics scripts on this site.
+            </p>
+          </section>
+
+          <section>
+            <h2>Retention and deletion</h2>
+            <p>
+              Diary entries stay until you delete them. You can remove individual entries in the Mini App or bot.
+              To delete your account and all associated data, open an issue on GitHub or contact the developer in
+              Telegram. We aim to process deletion requests within 30 days.
+            </p>
+          </section>
+
+          <section>
+            <h2>Cookies and local storage</h2>
+            <p>
+              This landing page uses local storage only to remember your language choice. The app may store a
+              session token in Telegram or your browser to keep you signed in.
+            </p>
+          </section>
+
+          <section>
+            <h2>Children</h2>
+            <p>
+              Fitty is not intended for children under 13. If you believe a child has created an account, contact
+              us and we will remove the data.
+            </p>
+          </section>
+
+          <section>
+            <h2>Changes and contact</h2>
+            <p>
+              We may update this policy as the app changes. The date above shows the current version. Questions or
+              requests: open an issue at
+              <a href="https://github.com/IvanBurenin/fitty-ai/issues" target="_blank" rel="noreferrer">
+                github.com/IvanBurenin/fitty-ai/issues</a
+              >
+              or write to <a href="https://t.me/AiFittyBot" target="_blank" rel="noreferrer">@AiFittyBot</a>.
+            </p>
+          </section>
+        </div>
+
+        <div data-copy="ru" hidden>
+          <p class="eyebrow">Документы</p>
+          <h1>Политика конфиденциальности</h1>
+          <p class="lead">
+            Fitty — небольшое независимое приложение в Telegram. Здесь описано, какие данные оно хранит, зачем и
+            как их удалить.
+          </p>
+          <p class="updated">Обновлено: ноябрь 2026 · v0.1</p>
+
+          <section>
+            <h2>Какие данные мы собираем</h2>
+            <ul>
+              <li>Ваш Telegram ID, имя и username — чтобы связать бота и Mini App с вашим дневником.</li>
+              <li>Записи о еде, которые вы подтвердили: блюда, порции, калории, БЖУ, даты и заметки.</li>
+              <li>Цели и необязательные данные профиля: нормы калорий и БЖУ, взвешивания, продукты в холодильнике.</li>
+              <li>Фото и голосовые сообщения, отправленные для анализа. Они обрабатываются, чтобы получить оценку.</li>
+              <li>Выбранный язык и минимальные технические логи, необходимые для работы сервиса.</li>
+            </ul>
+            <p class="muted">
+              Мы не запрашиваем email, телефон, точную геолокацию, контакты или платёжные данные.
+            </p>
+          </section>
+
+          <section>
+            <h2>Как используются данные</h2>
+            <p>
+              Данные нужны только для работы Fitty: распознавание еды, подсчёт калорий и БЖУ, дневник и прогресс,
+              рецепты и ответы на ваши запросы. Мы не продаём данные и не показываем рекламу.
+            </p>
+          </section>
+
+          <section>
+            <h2>Обработка ИИ</h2>
+            <p>
+              Фото, голосовые и текст могут передаваться провайдерам ИИ-моделей для распознавания и оценки. Они
+              обрабатывают контент, чтобы вернуть результат. Мы не используем ваш контент для обучения моделей.
+              Провайдеры работают по своим условиям и политикам конфиденциальности.
+            </p>
+            <p class="muted">
+              Оценки приблизительны. Любой результат можно изменить или отменить до сохранения в дневник.
+            </p>
+          </section>
+
+          <section>
+            <h2>Хранение и безопасность</h2>
+            <p>
+              Данные хранятся в базе PostgreSQL на сервере под контролем разработчика. Доступ ограничен
+              приложением. Данные передаются по HTTPS. Абсолютной безопасности не существует, но мы держим
+              поверхность маленькой: без рекламных трекеров и сторонних скриптов аналитики на этом сайте.
+            </p>
+          </section>
+
+          <section>
+            <h2>Срок хранения и удаление</h2>
+            <p>
+              Записи дневника хранятся, пока вы их не удалите. Отдельные записи можно удалить в Mini App или боте.
+              Чтобы удалить аккаунт и все связанные данные, создайте issue на GitHub или напишите разработчику в
+              Telegram. Мы обрабатываем запросы на удаление в течение 30 дней.
+            </p>
+          </section>
+
+          <section>
+            <h2>Cookies и локальное хранилище</h2>
+            <p>
+              Лендинг использует локальное хранилище только для запоминания языка. Приложение может хранить токен
+              сессии в Telegram или браузере, чтобы не выходить из аккаунта.
+            </p>
+          </section>
+
+          <section>
+            <h2>Дети</h2>
+            <p>
+              Fitty не предназначен для детей младше 13 лет. Если вы считаете, что ребёнок создал аккаунт,
+              свяжитесь с нами — мы удалим данные.
+            </p>
+          </section>
+
+          <section>
+            <h2>Изменения и контакты</h2>
+            <p>
+              Политика может обновляться вместе с приложением. Дата выше показывает актуальную версию. Вопросы и
+              запросы: issue на
+              <a href="https://github.com/IvanBurenin/fitty-ai/issues" target="_blank" rel="noreferrer">
+                github.com/IvanBurenin/fitty-ai/issues</a
+              >
+              или сообщение в <a href="https://t.me/AiFittyBot" target="_blank" rel="noreferrer">@AiFittyBot</a>.
+            </p>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        <a href="./">← Fitty</a>
+        <a href="./terms.html"
+          ><span data-copy="en">Terms</span><span data-copy="ru" hidden>Условия</span></a
+        >
+        <a href="https://github.com/IvanBurenin/fitty-ai" target="_blank" rel="noreferrer">GitHub</a>
+        <span>© <span id="year">2026</span> Fitty</span>
+      </footer>
+    </div>
+
+    <script>
+      ;(function () {
+        var buttons = document.querySelectorAll('[data-lang-btn]')
+        var blocks = document.querySelectorAll('[data-copy]')
+        var saved = null
+        try {
+          saved = window.localStorage.getItem('fitty-lang')
+        } catch (error) {}
+        var lang = saved === 'ru' ? 'ru' : 'en'
+        var titles = {
+          en: 'Privacy — Fitty',
+          ru: 'Конфиденциальность — Fitty',
+        }
+
+        function apply(next) {
+          lang = next
+          document.documentElement.lang = next
+          document.title = titles[next]
+          for (var i = 0; i < blocks.length; i += 1) {
+            blocks[i].hidden = blocks[i].getAttribute('data-copy') !== next
+          }
+          for (var j = 0; j < buttons.length; j += 1) {
+            buttons[j].setAttribute(
+              'aria-pressed',
+              String(buttons[j].getAttribute('data-lang-btn') === next)
+            )
+          }
+          try {
+            window.localStorage.setItem('fitty-lang', next)
+          } catch (error) {}
+        }
+
+        for (var k = 0; k < buttons.length; k += 1) {
+          buttons[k].addEventListener('click', function (event) {
+            apply(event.currentTarget.getAttribute('data-lang-btn'))
+          })
+        }
+
+        var year = document.getElementById('year')
+        if (year) year.textContent = String(new Date().getFullYear())
+        apply(lang)
+      })()
+    </script>
+  </body>
+</html>
